@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#0e1722" />
+<title>Evenes Berg Forening — EB Kystarv</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0e1722;
+    --paper: #f4efe6;
+    --slate: #2c3d52;
+    --rule: rgba(244, 239, 230, 0.18);
+    --rule-ink: rgba(14, 23, 34, 0.15);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    min-height: 100%;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 300;
+    color: var(--paper);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  /* ============ TOP NAV ============ */
+  .top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--paper);
+  }
+
+  .back-link {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--paper);
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .back-link:hover { opacity: 1; }
+
+  .back-link .arrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+  }
+
+  .back-link:hover .arrow { transform: translateX(-4px); }
+
+  .wordmark {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 1.1rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--paper);
+    text-decoration: none;
+    cursor: default;
+  }
+
+  .lang-toggle {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+  }
+
+  .lang-toggle button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--paper);
+    font-family: inherit;
+    font-size: inherit;
+    letter-spacing: inherit;
+    text-transform: uppercase;
+    padding: 0.5rem 0.25rem;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .lang-toggle button.active { opacity: 1; }
+  .lang-toggle button:hover { opacity: 0.85; }
+  .lang-toggle .divider { opacity: 0.35; }
+
+  /* ============ HERO ============ */
+  .hero {
+    position: relative;
+    min-height: 90vh;
+    min-height: 90dvh;
+    background-image:
+      linear-gradient(
+        180deg,
+        rgba(14, 23, 34, 0.4) 0%,
+        rgba(14, 23, 34, 0.25) 40%,
+        rgba(14, 23, 34, 0.7) 100%
+      ),
+      url('forening-hero.jpg');
+    background-size: cover;
+    background-position: center center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 3rem;
+    color: var(--paper);
+  }
+
+  .hero-content {
+    max-width: 880px;
+    opacity: 0;
+    transform: translateY(15px);
+    animation: rise 1.4s ease 0.3s forwards;
+  }
+
+  @keyframes rise {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 2rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.7;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 1.05;
+    letter-spacing: -0.005em;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .hero-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+    opacity: 0.9;
+    max-width: 620px;
+    line-height: 1.5;
+  }
+
+  /* ============ CONTENT ============ */
+  main {
+    background: var(--paper);
+    color: var(--ink);
+    padding: 6rem 3rem;
+  }
+
+  .content {
+    max-width: 880px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--slate);
+    margin-bottom: 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 2rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.5;
+  }
+
+  .lead {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.35rem, 2.2vw, 1.7rem);
+    line-height: 1.45;
+    color: var(--slate);
+    margin-bottom: 2.5rem;
+  }
+
+  .body-text p {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 1.025rem;
+    line-height: 1.85;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+
+  .body-text p:last-child { margin-bottom: 0; }
+
+  /* ============ FLEET LIST ============ */
+  .fleet {
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--rule-ink);
+  }
+
+  .fleet-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(1.6rem, 2.5vw, 2rem);
+    margin-bottom: 0.5rem;
+    color: var(--ink);
+  }
+
+  .fleet-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--slate);
+    margin-bottom: 2.5rem;
+    font-size: 1.05rem;
+  }
+
+  .fleet-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .fleet-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: baseline;
+    gap: 2rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--rule-ink);
+  }
+
+  .fleet-item:first-child { border-top: 1px solid var(--rule-ink); }
+
+  .fleet-count {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.5rem;
+    color: var(--slate);
+    min-width: 1.5rem;
+  }
+
+  .fleet-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+
+  .fleet-meta {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--slate);
+    opacity: 0.7;
+  }
+
+  /* ============ GALLERY ============ */
+  .gallery {
+    margin-top: 6rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .gallery figure {
+    margin: 0;
+  }
+
+  .gallery img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.92);
+  }
+
+  .gallery figcaption {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--slate);
+    margin-top: 0.75rem;
+    text-align: center;
+  }
+
+  /* ============ FOOTER ============ */
+  .foot {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 1;
+  }
+
+  .foot span { opacity: 0.5; }
+
+  [data-lang]:not(.active) { display: none; }
+
+  /* ============ TABLET ============ */
+  @media (max-width: 900px) {
+    .top { padding: 1.75rem 2rem; }
+    .hero { padding: 2rem; }
+    main { padding: 4.5rem 2rem; }
+    .foot { padding: 1.5rem 2rem; }
+    .gallery img { height: 300px; }
+  }
+
+  /* ============ MOBILE ============ */
+  @media (max-width: 600px) {
+    .top { padding: 1.25rem; flex-wrap: wrap; gap: 0.75rem; }
+    .back-link { font-size: 0.65rem; letter-spacing: 0.22em; }
+    .wordmark { font-size: 0.85rem; letter-spacing: 0.22em; }
+    .lang-toggle { font-size: 0.65rem; }
+
+    .hero {
+      padding: 1.5rem;
+      min-height: 80vh;
+      min-height: 80dvh;
+      background-position: center center;
+    }
+
+    .hero h1 { font-size: clamp(2rem, 9vw, 3rem); }
+    .hero-tagline { font-size: 1rem; }
+
+    main { padding: 3.5rem 1.25rem; }
+
+    .lead { font-size: 1.2rem; }
+
+    .body-text p { font-size: 0.95rem; line-height: 1.75; }
+
+    .fleet { margin-top: 3rem; padding-top: 2.5rem; }
+    .fleet-item { gap: 1rem; padding: 1rem 0; }
+    .fleet-name { font-size: 1.1rem; }
+    .fleet-count { font-size: 1.2rem; }
+    .fleet-meta { display: none; }
+
+    .gallery {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+    .gallery img { height: 260px; }
+
+    .foot {
+      padding: 1.25rem;
+      flex-direction: column;
+      gap: 0.5rem;
+      text-align: center;
+      font-size: 0.6rem;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .top { padding: 1rem; }
+    main { padding: 3rem 1rem; }
+    .hero { padding: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <a href="index.html" class="back-link">
+    <span class="arrow">←</span>
+    <span data-lang="no">Tilbake</span>
+    <span data-lang="en">Back</span>
+  </a>
+  <span class="wordmark">Evenes Berg</span>
+  <div class="lang-toggle">
+    <button id="lang-no" class="active">NO</button>
+    <span class="divider">/</span>
+    <button id="lang-en">EN</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow" data-lang="no">Evenes Berg Forening</div>
+    <div class="hero-eyebrow" data-lang="en">Evenes Berg Association</div>
+    <h1 data-lang="no">EB <em>Kystarv</em></h1>
+    <h1 data-lang="en">EB <em>Coastal Heritage</em></h1>
+    <p class="hero-tagline" data-lang="no">For bevaring av nordnorsk kyst- og kulturarv — gjennom aktiv drift, eierskap og vedlikehold av tradisjonelle nordlandsbåter.</p>
+    <p class="hero-tagline" data-lang="en">Preserving Northern Norwegian coastal and cultural heritage — through active stewardship, ownership, and care of traditional Nordland boats.</p>
+  </div>
+</header>
+
+<main>
+  <div class="content">
+    <div class="section-label" data-lang="no">Om Foreningen</div>
+    <div class="section-label" data-lang="en">About the Association</div>
+
+    <p class="lead" data-lang="no">EB Kystarv ble etablert i 2025 av familien Berg Jensen på Evenes i Nordland — for å forvalte familiens lidenskap for lokal kystkultur og samlingen av tradisjonelle nordlandsbåter.</p>
+    <p class="lead" data-lang="en">EB Kystarv was established in 2025 by the Berg Jensen family in Evenes, Nordland — to steward the family's passion for local coastal culture and a collection of traditional Nordland boats.</p>
+
+    <div class="body-text" data-lang="no">
+      <p>Foreningens medlemmer er omforente om et vedtektssatt felles mål om å ta vare på, tilgjengeliggjøre, formidle og forvalte vår felles kystarv gjennom aktiv drift, eierskap og vedlikehold av kystanlegg og tradisjonelt håndverk.</p>
+      <p>Foreningen forvalter i dag åtte tradisjonelle nordlandsbåter, der vedlikehold, opplag og drift skjer ved familien Berg Jensens anlegg på Evenes.</p>
+    </div>
+
+    <div class="body-text" data-lang="en">
+      <p>The members of the association share a common purpose, established in our statutes: to preserve, make accessible, communicate, and steward our shared coastal heritage through the active operation, ownership, and maintenance of coastal facilities and traditional craftsmanship.</p>
+      <p>The association currently stewards eight traditional Nordland boats, with maintenance, winter storage, and operation taking place at the Berg Jensen family's facilities in Evenes.</p>
+    </div>
+
+    <section class="fleet">
+      <h2 class="fleet-title" data-lang="no">Flåten</h2>
+      <h2 class="fleet-title" data-lang="en">The Fleet</h2>
+      <p class="fleet-subtitle" data-lang="no">Åtte tradisjonelle nordlandsbåter under forvaltning</p>
+      <p class="fleet-subtitle" data-lang="en">Eight traditional Nordland boats under stewardship</p>
+
+      <ul class="fleet-list">
+        <li class="fleet-item">
+          <span class="fleet-count">i.</span>
+          <span class="fleet-name">Fembøring</span>
+          <span class="fleet-meta" data-lang="no">Én båt</span>
+          <span class="fleet-meta" data-lang="en">One vessel</span>
+        </li>
+        <li class="fleet-item">
+          <span class="fleet-count">ii.</span>
+          <span class="fleet-name">Åttringer</span>
+          <span class="fleet-meta" data-lang="no">To båter</span>
+          <span class="fleet-meta" data-lang="en">Two vessels</span>
+        </li>
+        <li class="fleet-item">
+          <span class="fleet-count">iii.</span>
+          <span class="fleet-name">2½-roringer</span>
+          <span class="fleet-meta" data-lang="no">Fem båter</span>
+          <span class="fleet-meta" data-lang="en">Five vessels</span>
+        </li>
+      </ul>
+    </section>
+
+    <div class="gallery">
+      <figure>
+        <img src="forening-orion.jpg" alt="Åttring Orion under seil" loading="lazy" />
+        <figcaption data-lang="no">Åttring «Orion» under seil</figcaption>
+        <figcaption data-lang="en">Åttring "Orion" under sail</figcaption>
+      </figure>
+      <figure>
+        <img src="forening-femboring.jpg" alt="Fembøring under seil" loading="lazy" />
+        <figcaption data-lang="no">Fembøring under seil</figcaption>
+        <figcaption data-lang="en">Fembøring under sail</figcaption>
+      </figure>
+    </div>
+  </div>
+</main>
+
+<div class="foot">
+  <span>© Evenes Berg Forening for Bevaring av Nordnorsk Kyst- og Kulturarv · Org. nr. 936 695 124</span>
+  <span>Evenes · Nordland</span>
+</div>
+
+<script>
+  const noBtn = document.getElementById('lang-no');
+  const enBtn = document.getElementById('lang-en');
+
+  function setLang(lang) {
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-lang]').forEach(el => {
+      el.classList.toggle('active', el.dataset.lang === lang);
+    });
+    noBtn.classList.toggle('active', lang === 'no');
+    enBtn.classList.toggle('active', lang === 'en');
+  }
+
+  noBtn.addEventListener('click', () => setLang('no'));
+  enBtn.addEventListener('click', () => setLang('en'));
+  setLang('no');
+</script>
+
+</body>
+</html>
