@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#0e1722" />
+<title>Palmemyra AS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0e1722;
+    --paper: #f4efe6;
+    --rule: rgba(244, 239, 230, 0.18);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    min-height: 100%;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 300;
+    color: var(--paper);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    background-color: var(--ink);
+    background-image:
+      linear-gradient(
+        180deg,
+        rgba(14, 23, 34, 0.55) 0%,
+        rgba(14, 23, 34, 0.2) 35%,
+        rgba(14, 23, 34, 0.35) 60%,
+        rgba(14, 23, 34, 0.85) 100%
+      ),
+      linear-gradient(90deg, rgba(14, 23, 34, 0.55) 0%, rgba(14, 23, 34, 0) 55%),
+      url('palmemyra-hero.jpg');
+    background-size: cover;
+    background-position: center 58%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .top {
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .back-link {
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--paper);
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .back-link:hover { opacity: 1; }
+  .back-link .arrow { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; transition: transform 0.3s ease; }
+  .back-link:hover .arrow { transform: translateX(-4px); }
+
+  .wordmark {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 1.1rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  .lang-toggle { display: flex; gap: 0.5rem; align-items: center; font-size: 0.7rem; letter-spacing: 0.2em; }
+  .lang-toggle button {
+    background: none; border: none; cursor: pointer; color: var(--paper);
+    font-family: inherit; font-size: inherit; letter-spacing: inherit; text-transform: uppercase;
+    padding: 0.5rem 0.25rem; opacity: 0.5; transition: opacity 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .lang-toggle button.active { opacity: 1; }
+  .lang-toggle button:hover { opacity: 0.85; }
+  .lang-toggle .divider { opacity: 0.35; }
+
+  .hero {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 3rem 3rem 4rem;
+    animation: rise 1.4s ease 0.2s both;
+  }
+
+  @keyframes rise {
+    from { transform: translateY(15px); }
+    to { transform: translateY(0); }
+  }
+
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .eyebrow::before { content: ''; width: 2rem; height: 1px; background: currentColor; opacity: 0.7; }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(3rem, 9vw, 7rem);
+    line-height: 1;
+    letter-spacing: 0.01em;
+    margin-bottom: 1.25rem;
+  }
+
+  .tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    line-height: 1.4;
+    opacity: 0.92;
+  }
+
+  .foot {
+    border-top: 1px solid var(--rule);
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .foot span { opacity: 0.5; }
+
+  [data-lang]:not(.active) { display: none; }
+
+  @media (max-width: 900px) {
+    .top { padding: 1.75rem 2rem; }
+    .hero { padding: 2rem 2rem 3rem; }
+    .foot { padding: 1.25rem 2rem; }
+  }
+
+  @media (max-width: 600px) {
+    .top { padding: 1.25rem; flex-wrap: wrap; gap: 0.75rem; }
+    .back-link { font-size: 0.65rem; letter-spacing: 0.22em; }
+    .wordmark { font-size: 0.85rem; letter-spacing: 0.22em; }
+    .lang-toggle { font-size: 0.65rem; }
+    .hero { padding: 1.5rem 1.25rem 2.5rem; }
+    h1 { font-size: clamp(2.6rem, 13vw, 4rem); }
+    .tagline { font-size: 1.1rem; }
+    .foot { padding: 1.25rem; flex-direction: column; gap: 0.5rem; text-align: center; font-size: 0.6rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) { .hero { animation: none; } }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <a href="index.html" class="back-link">
+    <span class="arrow">←</span>
+    <span data-lang="no">Tilbake</span>
+    <span data-lang="en">Back</span>
+  </a>
+  <span class="wordmark">Evenes Berg</span>
+  <div class="lang-toggle">
+    <button id="lang-no" class="active">NO</button>
+    <span class="divider">/</span>
+    <button id="lang-en">EN</button>
+  </div>
+</div>
+
+<main class="hero">
+  <div class="eyebrow" data-lang="no">Evenes Berg</div>
+  <div class="eyebrow" data-lang="en">Evenes Berg</div>
+  <h1>Palmemyra AS</h1>
+  <p class="tagline" data-lang="no">Eiendom, utvikling og forvaltning</p>
+  <p class="tagline" data-lang="en">Real estate, development and management</p>
+</main>
+
+<div class="foot">
+  <span>© Palmemyra AS</span>
+  <span>Evenes · Nordland</span>
+</div>
+
+<script>
+  const noBtn = document.getElementById('lang-no');
+  const enBtn = document.getElementById('lang-en');
+
+  function setLang(lang) {
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-lang]').forEach(el => {
+      el.classList.toggle('active', el.dataset.lang === lang);
+    });
+    noBtn.classList.toggle('active', lang === 'no');
+    enBtn.classList.toggle('active', lang === 'en');
+  }
+
+  noBtn.addEventListener('click', () => setLang('no'));
+  enBtn.addEventListener('click', () => setLang('en'));
+  setLang('no');
+</script>
+
+</body>
+</html>
