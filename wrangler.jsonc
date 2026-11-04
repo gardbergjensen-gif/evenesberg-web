@@ -1,7 +1,7 @@
 {
   // Evenes Berg AS – statisk nettside (evenesberg.com / evenesberg.no)
   "name": "morning-sun-3def",
-  "compatibility_date": "2026-11-01",
+  "compatibility_date": "2026-05-26",
   "assets": {
     "directory": "./public",
     "not_found_handling": "404-page"
