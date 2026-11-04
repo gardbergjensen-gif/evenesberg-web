@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#0e1722" />
+<title>Evenes Berg AS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0e1722;
+    --paper: #f4efe6;
+    --slate: #2c3d52;
+    --rule: rgba(244, 239, 230, 0.18);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    min-height: 100%;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 300;
+    color: var(--paper);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    background-image:
+      linear-gradient(
+        180deg,
+        rgba(14, 23, 34, 0.55) 0%,
+        rgba(14, 23, 34, 0.4) 40%,
+        rgba(14, 23, 34, 0.75) 100%
+      ),
+      url('hero.jpg');
+    background-size: cover;
+    background-position: center 45%;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .top {
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .wordmark {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 1.1rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--paper);
+    text-decoration: none;
+    cursor: default;
+  }
+
+  .lang-toggle {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+  }
+
+  .lang-toggle button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--paper);
+    font-family: inherit;
+    font-size: inherit;
+    letter-spacing: inherit;
+    text-transform: uppercase;
+    padding: 0.5rem 0.25rem;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .lang-toggle button.active { opacity: 1; }
+  .lang-toggle button:hover { opacity: 0.85; }
+  .lang-toggle .divider { opacity: 0.35; }
+
+  .hero {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 1.5rem;
+    opacity: 0;
+    transform: translateY(15px);
+    animation: rise 1.4s ease 0.2s forwards;
+  }
+
+  @keyframes rise {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(3rem, 9vw, 7rem);
+    line-height: 1;
+    letter-spacing: 0.02em;
+  }
+
+  .companies {
+    border-top: 1px solid var(--rule);
+    opacity: 0;
+    animation: rise 1.4s ease 0.6s forwards;
+    flex-shrink: 0;
+  }
+
+  .company {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 2rem;
+    padding: 1.5rem 3rem 1.5rem 8rem;
+    border-bottom: 1px solid var(--rule);
+    text-decoration: none;
+    color: var(--paper);
+    position: relative;
+    overflow: hidden;
+    transition: padding 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .company::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--paper);
+    transform: translateX(-100%);
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 0;
+  }
+
+  .company > * {
+    position: relative;
+    z-index: 1;
+    transition: color 0.5s ease;
+  }
+
+  /* Hover effects only on devices that actually support hover (desktop) */
+  @media (hover: hover) {
+    .company:hover { padding-left: 9rem; padding-right: 4rem; }
+    .company:hover::before { transform: translateX(0); }
+    .company:hover .company-name,
+    .company:hover .company-desc { color: var(--ink); }
+    .company:hover .company-desc { opacity: 0.65; }
+    .company:hover .company-arrow { color: var(--ink); transform: translateX(8px); opacity: 1; }
+
+    .company.disabled:hover { padding-left: 8rem; padding-right: 3rem; }
+    .company.disabled:hover::before { transform: translateX(-100%); }
+    .company.disabled:hover .company-name,
+    .company.disabled:hover .company-desc { color: var(--paper); }
+    .company.disabled:hover .company-desc { opacity: 0.6; }
+    .company.disabled:hover .company-arrow { transform: none; opacity: 0.25; color: var(--paper); }
+  }
+
+  /* Touch device active state - brief tap feedback on linked companies */
+  @media (hover: none) {
+    .company:active::before { transform: translateX(0); }
+    .company:active .company-name,
+    .company:active .company-desc { color: var(--ink); }
+    .company:active .company-arrow { color: var(--ink); }
+    .company.disabled:active::before { transform: translateX(-100%); }
+    .company.disabled:active .company-name,
+    .company.disabled:active .company-desc { color: var(--paper); }
+    .company.disabled:active .company-arrow { color: var(--paper); }
+  }
+
+  .company-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    min-width: 0;
+  }
+
+  .company-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+    letter-spacing: -0.005em;
+    line-height: 1.15;
+  }
+
+  .company-desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    opacity: 0.6;
+    line-height: 1.4;
+    transition: color 0.5s ease, opacity 0.5s ease;
+  }
+
+  .company-arrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    opacity: 0.6;
+    transition: transform 0.5s ease, color 0.5s ease, opacity 0.5s ease;
+  }
+
+  .company.disabled {
+    cursor: default;
+  }
+
+  .company.disabled .company-arrow {
+    opacity: 0.25;
+  }
+
+  .foot {
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+
+  [data-lang]:not(.active) { display: none; }
+
+  /* ============ TABLET ============ */
+  @media (max-width: 900px) {
+    .top { padding: 1.75rem 2rem; }
+    .company { padding: 1.4rem 2rem 1.4rem 4rem; }
+    @media (hover: hover) {
+      .company:hover { padding-left: 5rem; padding-right: 2.5rem; }
+    }
+    .foot { padding: 1.25rem 2rem; }
+  }
+
+  /* ============ MOBILE ============ */
+  @media (max-width: 600px) {
+    body {
+      background-attachment: scroll;
+      background-position: center center;
+    }
+
+    .top {
+      padding: 1.25rem 1.25rem;
+    }
+
+    .wordmark {
+      font-size: 0.9rem;
+      letter-spacing: 0.25em;
+    }
+
+    .lang-toggle {
+      font-size: 0.65rem;
+    }
+
+    .hero {
+      padding: 3rem 1.25rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.75rem, 13vw, 4rem);
+      letter-spacing: 0.01em;
+    }
+
+    .company {
+      padding: 1.25rem 1.25rem;
+      gap: 1rem;
+    }
+
+    .company-name {
+      font-size: 1.2rem;
+    }
+
+    .company-desc {
+      font-size: 0.85rem;
+      line-height: 1.35;
+    }
+
+    .company-arrow {
+      font-size: 1.2rem;
+    }
+
+    .foot {
+      padding: 1.25rem;
+      flex-direction: column;
+      gap: 0.5rem;
+      text-align: center;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+    }
+  }
+
+  /* ============ VERY SMALL PHONES ============ */
+  @media (max-width: 380px) {
+    .top { padding: 1rem; }
+    .wordmark { font-size: 0.82rem; letter-spacing: 0.2em; }
+    .hero h1 { font-size: 2.5rem; }
+    .company { padding: 1.1rem 1rem; }
+    .company-name { font-size: 1.1rem; }
+    .company-desc { font-size: 0.8rem; }
+    .foot { padding: 1rem; font-size: 0.55rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <span class="wordmark">Evenes Berg</span>
+  <div class="lang-toggle">
+    <button id="lang-no" class="active">NO</button>
+    <span class="divider">/</span>
+    <button id="lang-en">EN</button>
+  </div>
+</div>
+
+<div class="hero">
+  <h1>Evenes Berg</h1>
+</div>
+
+<nav class="companies">
+  <a href="https://www.evenestaxi.com" target="_blank" rel="noopener" class="company">
+    <span class="company-info">
+      <span class="company-name">Evenes Taxi AS</span>
+      <span class="company-desc" data-lang="no">Persontransport og flyplasstaxi</span>
+      <span class="company-desc" data-lang="en">Passenger transport and airport service</span>
+    </span>
+    <span class="company-arrow">→</span>
+  </a>
+  <div class="company disabled">
+    <span class="company-info">
+      <span class="company-name">Evenes Berg Mobility AS</span>
+      <span class="company-desc" data-lang="no">Mobilitetstjenester for regionen</span>
+      <span class="company-desc" data-lang="en">Mobility services for the region</span>
+    </span>
+    <span class="company-arrow">→</span>
+  </div>
+  <a href="forening.html" class="company">
+    <span class="company-info">
+      <span class="company-name">Evenes Berg Forening</span>
+      <span class="company-desc" data-lang="no">For bevaring av nordnorsk kyst- og kulturarv</span>
+      <span class="company-desc" data-lang="en">Preserving Northern Norwegian coastal and cultural heritage</span>
+    </span>
+    <span class="company-arrow">→</span>
+  </a>
+  <a href="https://www.evenescamping.biz" target="_blank" rel="noopener" class="company">
+    <span class="company-info">
+      <span class="company-name">Evenes Camping AS</span>
+      <span class="company-desc" data-lang="no">Reiseliv og overnatting ved Ofotfjorden</span>
+      <span class="company-desc" data-lang="en">Hospitality and lodging by the Ofotfjord</span>
+    </span>
+    <span class="company-arrow">→</span>
+  </a>
+  <div class="company disabled">
+    <span class="company-info">
+      <span class="company-name">Palmemyra AS</span>
+      <span class="company-desc" data-lang="no">Eiendom og forvaltning</span>
+      <span class="company-desc" data-lang="en">Real estate and asset management</span>
+    </span>
+    <span class="company-arrow">→</span>
+  </div>
+  <a href="https://www.godveir.com" target="_blank" rel="noopener" class="company">
+    <span class="company-info">
+      <span class="company-name">Godveir AS</span>
+      <span class="company-desc" data-lang="no">Forvaltning og rådgivning</span>
+      <span class="company-desc" data-lang="en">Asset management and advisory</span>
+    </span>
+    <span class="company-arrow">→</span>
+  </a>
+  <div class="company disabled">
+    <span class="company-info">
+      <span class="company-name">Berg Gård</span>
+      <span class="company-desc" data-lang="no">Økologisk gårdsbruk og utleie av bolig</span>
+      <span class="company-desc" data-lang="en">Organic farm and property rental</span>
+    </span>
+    <span class="company-arrow">→</span>
+  </div>
+</nav>
+
+<div class="foot">
+  <span>© Evenes Berg AS · Org. nr. 937 385 684</span>
+  <span>Evenes · Nordland</span>
+</div>
+
+<script>
+  const noBtn = document.getElementById('lang-no');
+  const enBtn = document.getElementById('lang-en');
+
+  function setLang(lang) {
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-lang]').forEach(el => {
+      el.classList.toggle('active', el.dataset.lang === lang);
+    });
+    noBtn.classList.toggle('active', lang === 'no');
+    enBtn.classList.toggle('active', lang === 'en');
+  }
+
+  noBtn.addEventListener('click', () => setLang('no'));
+  enBtn.addEventListener('click', () => setLang('en'));
+  setLang('no');
+</script>
+
+</body>
+</html>
