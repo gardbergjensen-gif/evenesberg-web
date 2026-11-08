@@ -105,6 +105,21 @@
     to { transform: translateY(0); }
   }
 
+  .brand {
+    display: flex;
+    justify-content: center;
+    padding: 2.5rem 1.25rem 0;
+    flex-shrink: 0;
+  }
+
+  .brand-logo {
+    display: block;
+    width: 170px;
+    height: auto;
+    max-width: 100%;
+    filter: drop-shadow(0 2px 14px rgba(14, 23, 34, 0.45));
+  }
+
   .eyebrow {
     font-size: 0.72rem;
     letter-spacing: 0.35em;
@@ -179,6 +194,8 @@
     .hero { padding: 1.5rem 1.25rem 2.5rem; }
     h1 { font-size: clamp(2.6rem, 13vw, 4rem); }
     .tagline { font-size: 1.1rem; }
+    .brand { padding-top: 1.75rem; }
+    .brand-logo { width: 120px; }
     .offers { grid-template-columns: minmax(0, 1fr); margin-top: 2rem; }
     .offer { padding: 0.9rem 0; border-bottom: 1px solid var(--rule); }
     .offer-name { font-size: 1.2rem; }
@@ -202,6 +219,10 @@
     <span class="divider">/</span>
     <button id="lang-en">EN</button>
   </div>
+</div>
+
+<div class="brand">
+  <img class="brand-logo" src="berg-gard-logo.png" alt="Berg Gård logo" />
 </div>
 
 <main class="hero">
